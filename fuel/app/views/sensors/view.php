@@ -11,6 +11,8 @@
 	<br><br>
 	<a class="btn btn-danger" href="/sensors/delete/<?php echo $sensor->id; ?>">Delete Sensor</a>
 	<br><br>
+	<a class="btn btn-default" href="/sensors/history/<?php echo $sensor->id; ?>">History of Reports</a>
+	<br><br>
 	<a class="btn btn-default" href="/sensors/">Back</a>
 	<br>
 </div>

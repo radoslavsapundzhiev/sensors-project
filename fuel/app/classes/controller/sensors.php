@@ -81,4 +81,25 @@ class Controller_Sensors extends Controller_Template
 
 		Response::redirect('/sensors');
 	}
+
+	//action for showing history of reports for sensor
+	public function action_history($id)
+	{
+		$sensor = Model_Sensor::find('first', array(
+			'where' => array(
+				'id' => $id
+			)
+		));
+
+		$reports = Model_Report::find('all', array(
+			'where' => array(
+				array('sensor_id', $id),
+			),
+			'order_by' => array('timestamp' => 'desc')
+		));
+
+		$data = array('sensor' => $sensor, 'reports' => $reports);
+		$this->template->title = $sensor->name;
+		$this->template->content = View::forge('sensors/history', $data, false);
+	}
 }
