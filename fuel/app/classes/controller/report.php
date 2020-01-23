@@ -5,14 +5,31 @@ class Controller_Report extends Controller_Template
 	public function action_index()
 	{
 		$report = new Model_Report();
-		$value = intval($_GET['value']);
-		$report->value = $value;
 		$id = intval($_GET['id']);
-		$report->sensor_id = $id;
-		$report->save();
 
-		Session::set_flash('success', 'Sensor reported successfully!');
+		$sensor = Model_Sensor::find('first', array(
+			'where' => array(
+				'id' => $id
+			)
+		));
 
-		Response::redirect('/sensors');
+		if(!$sensor){
+			Session::set_flash('error', 'No such sensor!');
+
+			Response::redirect('/sensors');
+		}else{
+
+			$report->sensor_id = $id;
+			$value = intval($_GET['value']);
+			$report->value = $value;
+			
+			$report->save();
+
+			Session::set_flash('success', 'Sensor reported successfully!');
+
+			Response::redirect('/sensors');
+		}
+
+		
 	}
 }
