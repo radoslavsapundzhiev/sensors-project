@@ -85,17 +85,45 @@ class Controller_Sensors extends Controller_Template
 	//action for showing history of reports for sensor
 	public function action_history($id)
 	{
+		//if exist order parameter take reports from DB sorted ASC or DESC, else just take all reports from DB
+		if(isset($_GET['order'])){
+			$order = $_GET['order'];
+
+			if($order === "Asc"){
+
+				$reports = Model_Report::find('all', array(
+					'where' => array(
+						array('sensor_id', $id),
+					),
+					'order_by' => array('timestamp' => 'asc')
+				));
+
+			}elseif ($order === "Desc") {
+
+				$reports = Model_Report::find('all', array(
+					'where' => array(
+						array('sensor_id', $id),
+					),
+					'order_by' => array('timestamp' => 'desc')
+				));
+
+			}
+
+		}else{
+
+			$reports = Model_Report::find('all', array(
+				'where' => array(
+					array('sensor_id', $id),
+				),
+			));
+
+		}
+		
+
 		$sensor = Model_Sensor::find('first', array(
 			'where' => array(
 				'id' => $id
 			)
-		));
-
-		$reports = Model_Report::find('all', array(
-			'where' => array(
-				array('sensor_id', $id),
-			),
-			'order_by' => array('timestamp' => 'desc')
 		));
 
 		$data = array('sensor' => $sensor, 'reports' => $reports);
