@@ -1,14 +1,18 @@
 <h1>History of sensor reports</h1>
 
-<?php foreach ($reports as $report) : ?>
-
-	<div>
-		<h2><?php echo $report->value; ?></h2>
-		<br>
-		<h2><?php echo $report->timestamp; ?></h2>
-		<br>
-	</div>
-
-<?php  endforeach; ?>
-
+<table id="reports" style="border: 1px solid black">
+	<thead>
+		<th>ID</th>
+		<th>VALUE</th>
+		<th>TIMESTAMP</th>
+	</thead>
+	<tbody>
+		<?php foreach ($reports as $report) : ?>
+			<td><?php echo $report->id; ?></td>
+			<td><?php echo $report->value; ?></td>
+			<td><?php echo $report->timestamp; ?></td>
+		<?php  endforeach; ?>
+	</tbody>
+</table>
+<br>
 <a class="btn btn-default" href="/sensors/view/<?php echo $sensor->id; ?>">Back</a>	

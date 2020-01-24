@@ -1,5 +1,5 @@
 <?php
-class Controller_Report extends Controller_Template
+class Controller_Report extends Controller_Rest
 {
 	//action for creation a sensor
 	public function action_index()
@@ -14,9 +14,9 @@ class Controller_Report extends Controller_Template
 		));
 
 		if(!$sensor){
-			Session::set_flash('error', 'No such sensor!');
 
-			Response::redirect('/sensors');
+			return $this->response(array('error' => "Sensor does not exist"));
+
 		}else{
 
 			$report->sensor_id = $id;
@@ -25,9 +25,8 @@ class Controller_Report extends Controller_Template
 			
 			$report->save();
 
-			Session::set_flash('success', 'Sensor reported successfully!');
+			return $this->response(array('success' => "Report has been sent successfully"));
 
-			Response::redirect('/sensors');
 		}
 
 		
