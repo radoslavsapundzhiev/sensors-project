@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MAIN TEMPLATE</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<title><?php echo $title; ?></title>
+	<?php echo Asset::css('style.css'); ?>
 </head>
 <body>
 	<?php echo $content; ?>
