@@ -3,30 +3,25 @@
 <?php
 	
 	$id = $sensor->id;
+	$mysqli = new mysqli("sensors.com", "root", "Ris8805240142", "mysensors");
 
 	if(isset($_POST['ASC'])){
 
-		$asc_query = "SELECT * FROM reports WHERE sensor_id = '$id' ORDER BY timestamp ASC";
-		// $stm = $mysqli->prepare($asc_query);
-		// $stm->bind_param('s', $sensor->id);
-		// $result = $stm->execute();
-		$result = executeQuery($asc_query);
-
+		$query = "SELECT * FROM reports WHERE sensor_id = ? ORDER BY timestamp ASC";
+	
 	}elseif (isset($_POST['DESC'])) {
 
-		$desc_query = "SELECT * FROM reports WHERE sensor_id = '$id' ORDER BY timestamp DESC";
-		$result = executeQuery($desc_query);
+		$query = "SELECT * FROM reports WHERE sensor_id = ? ORDER BY timestamp DESC";
 
 	}else{
-		$default_query = "SELECT * FROM reports WHERE sensor_id = '$id'";
-		$result = executeQuery($default_query);
+
+		$query = "SELECT * FROM reports WHERE sensor_id = ?";
 	}
 
-	function executeQuery($query){
-		$connect = mysqli_connect("sensors.com", "root", "Ris8805240142", "mysensors");
-		$result = mysqli_query($connect, $query);
-		return $result;
-	} 
+	$stm = $mysqli->prepare($query);
+	$stm->bind_param("s", $sensor->id);
+	$stm->execute();
+	$result = $stm->get_result(); 
 ?>
 
 <form method="POST">
