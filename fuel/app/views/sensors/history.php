@@ -16,7 +16,12 @@
 				<tr>
 					<td><?php echo $report->id; ?></td>
 					<td><?php echo $report->value; ?></td>
-					<td><?php echo $report->timestamp; ?></td>
+					<td>
+						<?php 
+							$datetime = DateTime::createFromFormat("Y-m-d H:i:s", $report->timestamp); 
+							echo $datetime->format('d/m/yy, H:i:s'); 
+						?>
+					</td>
 				</tr>
 			<?php  endforeach; ?>
 		</tbody>
