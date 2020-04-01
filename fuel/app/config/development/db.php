@@ -24,7 +24,7 @@ return array(
 		'connection' => array(
 			'dsn'      => 'mysql:host=localhost;dbname=mysensors',
 			'username' => 'root',
-			'password' => 'Ris8805240142',
+			'password' => '',
 		),
 	),
 );
